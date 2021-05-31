@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh_Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/ningoy.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/ningoy.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/ningoy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/ningoy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/ningoy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/ningoy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/ningoy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/ningoy.github.io/rss2.xml" title="关爱颈椎成长协会" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="head &amp;amp; tail  head 默认打印出文件的前10 行，tail 默认打印出文件的最后10 行。  也可以使用head -n 5 shakespeare_6.0.json 或是 head -5 shakespeare_6.0.json 打印出前5 行。用tail -n 5 shakespeare_6.0.json 或 tail -5 shakespeare_6.0.json 打印出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="处理数据常用的命令行工具">
+<meta property="og:url" content="https://ningoy.github.io/2020/03/27/处理数据常用的命令行工具/index.html">
+<meta property="og:site_name" content="关爱颈椎成长协会">
+<meta property="og:description" content="head &amp;amp; tail  head 默认打印出文件的前10 行，tail 默认打印出文件的最后10 行。  也可以使用head -n 5 shakespeare_6.0.json 或是 head -5 shakespeare_6.0.json 打印出前5 行。用tail -n 5 shakespeare_6.0.json 或 tail -5 shakespeare_6.0.json 打印出">
+<meta property="og:locale" content="zh_Hans">
+<meta property="og:updated_time" content="2021-05-28T06:52:27.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="处理数据常用的命令行工具">
+<meta name="twitter:description" content="head &amp;amp; tail  head 默认打印出文件的前10 行，tail 默认打印出文件的最后10 行。  也可以使用head -n 5 shakespeare_6.0.json 或是 head -5 shakespeare_6.0.json 打印出前5 行。用tail -n 5 shakespeare_6.0.json 或 tail -5 shakespeare_6.0.json 打印出">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ningoy.github.io/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ningoy.github.io/2020/03/27/处理数据常用的命令行工具/">
+
+
+
+
+
+  <title>处理数据常用的命令行工具 | 关爱颈椎成长协会</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh_Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/ningoy.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">关爱颈椎成长协会</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/ningoy.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/ningoy.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ningoy.github.io/ningoy.github.io/2020/03/27/处理数据常用的命令行工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lenin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/ningoy.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="关爱颈椎成长协会">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">处理数据常用的命令行工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T23:03:09+08:00">
+                2020-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/数据挖掘/" itemprop="url" rel="index">
+                    <span itemprop="name">数据挖掘</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/数据挖掘/数据清洗/" itemprop="url" rel="index">
+                    <span itemprop="name">数据清洗</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="head-amp-tail"><a href="#head-amp-tail" class="headerlink" title="head &amp; tail"></a>head &amp; tail</h4><hr>
+<ol>
+<li><p><code>head</code> 默认打印出文件的前<code>10</code> 行，<code>tail</code> 默认打印出文件的最后<code>10</code> 行。</p>
+</li>
+<li><p>也可以使用<code>head -n 5 shakespeare_6.0.json</code> 或是 <code>head -5 shakespeare_6.0.json</code> 打印出前<code>5</code> 行。用<code>tail -n 5 shakespeare_6.0.json</code> 或 <code>tail -5 shakespeare_6.0.json</code> 打印出文件最后<code>5</code> 行。</p>
+</li>
+<li><p><code>head -n 10010 listings.csv | tail -10</code> 和 <code>tail -n +10001 listings.csv | head -n 10</code> 表示同一个意思，即是打印 <code>10001-10010</code> 行。</p>
+</li>
+<li><p><code>tail -f listings.csv</code> 这个命令既打印 <code>listings.csv</code> 文件的最后<code>10</code> 行，也能在<code>listings.csv</code> 文件行数增长时，继续打印新增的行。</p>
+</li>
+</ol>
+<h4 id="tr"><a href="#tr" class="headerlink" title="tr"></a>tr</h4><hr>
+<ol>
+<li><p><code>head -n 10 listings.csv | tr &#39;,&#39; &#39;\t&#39;</code>  可以将<code>.csv</code> 文件中的<code>,</code> 分隔符换成<code>\t</code> 分隔符。</p>
+</li>
+<li><p><code>head -n 10 listings.csv | tr -d &#39;,&#39;</code> 可以将<code>.csv</code> 文件中的<code>,</code> 分隔符去掉。</p>
+</li>
+<li><p><code>head -n 10 listings.csv | tr &quot;[:lower:]&quot; &quot;[:upper:]&quot;</code> 可以将 <code>.csv</code> 文件中的小写字母换成大写字母，而这是通过<code>[:class:]</code> 做到的。</p>
+<ul>
+<li><code>[:alnum:]</code> 所有字母和数字</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>[:alpha:]</code> 所有字母<ul>
+<li><code>[:blank:]</code> 所有水平空白</li>
+</ul>
+</li>
+<li><code>[:cntrl:]</code> 所有控制字符<ul>
+<li><code>[:digit:]</code> 所有数字</li>
+</ul>
+</li>
+<li><code>[:graph:]</code> 所有可打印字符，但不包括空格<ul>
+<li><code>[:lower:]</code> 所有小写字母</li>
+</ul>
+</li>
+<li><code>[:print:]</code> 所有可打印字符，包括空格<ul>
+<li><code>[:punct:]</code> 所有标点符号</li>
+</ul>
+</li>
+<li><code>[:space:]</code> 所有水平或垂直空白<ul>
+<li><code>[:upper:]</code> 所有大写字母</li>
+</ul>
+</li>
+<li><code>[:xdigit:]</code> 所有 16 进制数字</li>
+</ul>
+<h4 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h4><hr>
+<ol>
+<li><code>wc -l listings.csv</code> 打印 <code>listings.csv</code> 的行数。</li>
+</ol>
+<h4 id="sort-amp-uniq"><a href="#sort-amp-uniq" class="headerlink" title="sort &amp; uniq"></a>sort &amp; uniq</h4><hr>
+<ol>
+<li><p><code>uniq</code> 只作用于重复的相邻行，因此最好先对要处理的文件进行<code>sort</code> 。</p>
+</li>
+<li><p><code>head -500 listings.csv | awk -F &#39;,&#39; &#39;{print $6}&#39; | sort | uniq -c | sort -nr</code> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sort 先排序，使得重复的行相邻便于uniq统计</span><br><span class="line"><span class="meta">#</span> 之后uniq -c 统计每一行重复的次数</span><br><span class="line"><span class="meta">#</span> 再通过sort -nr降序排列</span><br><span class="line"><span class="meta">#</span> 这样可以很快找到重复次数最多的一行</span><br><span class="line">    201 朝阳区 / Chaoyang</span><br><span class="line">     65 东城区</span><br><span class="line">     53 </span><br><span class="line">     34 海淀区</span><br><span class="line">     27 西城区</span><br><span class="line">     24 丰台区 / Fengtai</span><br><span class="line">     14 顺义区 / Shunyi</span><br><span class="line">     12 昌平区</span><br><span class="line">     12 怀柔区 / Huairou</span><br><span class="line">      6 通州区 / Tongzhou</span><br><span class="line">      5 密云县 / Miyun</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>head -10 reviews.csv | tr &#39;,&#39; &#39; &#39; | sort -t&quot; &quot; -k2,2</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> -t 选项将" "指定为分隔符</span><br><span class="line"><span class="meta">#</span> -k 选项用来确定排序的键</span><br><span class="line"><span class="meta">#</span> -k2,2 意为 第2列为开始列 第2列为结束列</span><br><span class="line">44054 2010-08-25</span><br><span class="line">44054 2010-10-13</span><br><span class="line">44054 2011-08-11</span><br><span class="line">44054 2012-04-12</span><br><span class="line">44054 2012-08-30</span><br><span class="line">44054 2012-09-28</span><br><span class="line">44054 2012-10-04</span><br><span class="line">44054 2012-11-15</span><br><span class="line">44054 2013-03-08</span><br><span class="line">listing_id date</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>head -n +100 reviews.csv | tail -10  | tr &#39;,&#39; &#39; &#39; | sort -t&quot; &quot; -k1n,1</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> -k1n,1 意为 第1列为开始列 第2列为结束列 同时第一列为数字 采用数字大小排序</span><br><span class="line">100213 2017-08-27</span><br><span class="line">100213 2017-10-08</span><br><span class="line">128496 2011-06-02</span><br><span class="line">128496 2011-06-05</span><br><span class="line">128496 2011-08-02</span><br><span class="line">128496 2011-08-26</span><br><span class="line">128496 2011-09-04</span><br><span class="line">128496 2011-09-07</span><br><span class="line">128496 2011-09-12</span><br><span class="line">128496 2011-09-19</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h4><hr>
+<ol>
+<li><code>cut</code> 用于选择列，<code>cut -d&#39;,&#39; -f 1,3 listings.csv | head -10</code> 选择第1列和第3列。</li>
+<li><code>head listings.csv | cut -d &#39;,&#39; -f 6-</code> 选择第6列以后的（包括第6列）所有列。</li>
+</ol>
+<h4 id="jq"><a href="#jq" class="headerlink" title="jq"></a>jq</h4><hr>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">head -n 4 shakespeare_6.0.json</span><br><span class="line"></span><br><span class="line">&#123;"index":&#123;"_index":"shakespeare","_id":0&#125;&#125;</span><br><span class="line">&#123;"type":"act","line_id":1,"play_name":"Henry IV", "speech_number":"","line_number":"","speaker":"","text_entry":"ACT I"&#125;</span><br><span class="line">&#123;"index":&#123;"_index":"shakespeare","_id":1&#125;&#125;</span><br><span class="line">&#123;"type":"scene","line_id":2,"play_name":"Henry IV","speech_number":"","line_number":"","speaker":"","text_entry":"SCENE I. London. The palace."&#125;</span><br><span class="line"></span><br><span class="line">head -n 4 shakespeare_6.0.json | jq</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "index": &#123;</span><br><span class="line">    "_index": "shakespeare",</span><br><span class="line">    "_id": 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  "type": "act",</span><br><span class="line">  "line_id": 1,</span><br><span class="line">  "play_name": "Henry IV",</span><br><span class="line">  "speech_number": "",</span><br><span class="line">  "line_number": "",</span><br><span class="line">  "speaker": "",</span><br><span class="line">  "text_entry": "ACT I"</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  "index": &#123;</span><br><span class="line">    "_index": "shakespeare",</span><br><span class="line">    "_id": 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  "type": "scene",</span><br><span class="line">  "line_id": 2,</span><br><span class="line">  "play_name": "Henry IV",</span><br><span class="line">  "speech_number": "",</span><br><span class="line">  "line_number": "",</span><br><span class="line">  "speaker": "",</span><br><span class="line">  "text_entry": "SCENE I. London. The palace."</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">head -n 4 shakespeare_6.0.json | jq ".text_entry"</span><br><span class="line"></span><br><span class="line">null</span><br><span class="line">"ACT I"</span><br><span class="line">null</span><br><span class="line">"SCENE I. London. The palace."</span><br></pre></td></tr></table></figure>
+<h4 id="sed-amp-awk"><a href="#sed-amp-awk" class="headerlink" title="sed &amp; awk"></a>sed &amp; awk</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ningoy.github.io/2018/05/05/561-Array-Partition-I/" rel="next" title="561. Array Partition I">
+                <i class="fa fa-chevron-left"></i> 561. Array Partition I
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ningoy.github.io/2021/05/31/使用ARIMA模型进行时间序列分析/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lenin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/ningoy.github.io/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/ningoy.github.io/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/ningoy.github.io/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/ningoy.github.io/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#head-amp-tail"><span class="nav-number">1.</span> <span class="nav-text">head &amp; tail</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tr"><span class="nav-number">2.</span> <span class="nav-text">tr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wc"><span class="nav-number">3.</span> <span class="nav-text">wc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort-amp-uniq"><span class="nav-number">4.</span> <span class="nav-text">sort &amp; uniq</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cut"><span class="nav-number">5.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jq"><span class="nav-number">6.</span> <span class="nav-text">jq</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sed-amp-awk"><span class="nav-number">7.</span> <span class="nav-text">sed &amp; awk</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lenin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/ningoy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/ningoy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/ningoy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/ningoy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/ningoy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

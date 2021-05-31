@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh_Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/ningoy.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/ningoy.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/ningoy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/ningoy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/ningoy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/ningoy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/ningoy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,">
+
+
+
+
+
+  <link rel="alternate" href="/ningoy.github.io/rss2.xml" title="关爱颈椎成长协会" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="从网上下载了一个公开数据集，想要用来做一点小实验。下载之后发现这是一个.csv格式的文件，里面大概有50多万条数据。那么下一步就是要把这些数据导入到数据库里。 方案一用python的pymysql库来操作，先连接数据库，然后创建数据表，再构造出sql语句，把数据一条一条导进去。 123456789101112131415161718192021222324252627282930313233343">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="导入CSV文件到MySQL">
+<meta property="og:url" content="https://ningoy.github.io/2017/11/29/导入CSV文件到MySQL/index.html">
+<meta property="og:site_name" content="关爱颈椎成长协会">
+<meta property="og:description" content="从网上下载了一个公开数据集，想要用来做一点小实验。下载之后发现这是一个.csv格式的文件，里面大概有50多万条数据。那么下一步就是要把这些数据导入到数据库里。 方案一用python的pymysql库来操作，先连接数据库，然后创建数据表，再构造出sql语句，把数据一条一条导进去。 123456789101112131415161718192021222324252627282930313233343">
+<meta property="og:locale" content="zh_Hans">
+<meta property="og:updated_time" content="2021-05-28T06:52:27.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="导入CSV文件到MySQL">
+<meta name="twitter:description" content="从网上下载了一个公开数据集，想要用来做一点小实验。下载之后发现这是一个.csv格式的文件，里面大概有50多万条数据。那么下一步就是要把这些数据导入到数据库里。 方案一用python的pymysql库来操作，先连接数据库，然后创建数据表，再构造出sql语句，把数据一条一条导进去。 123456789101112131415161718192021222324252627282930313233343">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/ningoy.github.io/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://ningoy.github.io/2017/11/29/导入CSV文件到MySQL/">
+
+
+
+
+
+  <title>导入CSV文件到MySQL | 关爱颈椎成长协会</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh_Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/ningoy.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">关爱颈椎成长协会</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/ningoy.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/ningoy.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ningoy.github.io/ningoy.github.io/2017/11/29/导入CSV文件到MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lenin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/ningoy.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="关爱颈椎成长协会">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">导入CSV文件到MySQL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-29T19:37:44+08:00">
+                2017-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/数据挖掘/" itemprop="url" rel="index">
+                    <span itemprop="name">数据挖掘</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/数据挖掘/数据集选取或构建/" itemprop="url" rel="index">
+                    <span itemprop="name">数据集选取或构建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从网上下载了一个<a href="https://www.capitalbikeshare.com/system-data" target="_blank" rel="noopener">公开数据集</a>，想要用来做一点小实验。下载之后发现这是一个<code>.csv</code>格式的文件，里面大概有50多万条数据。那么下一步就是要把这些数据导入到数据库里。</p>
+<h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><p>用<code>python</code>的<code>pymysql</code>库来操作，先连接数据库，然后创建数据表，再构造出<code>sql</code>语句，把数据一条一条导进去。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    start = time.time()</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'2016-Q1-Trips-History-Data.csv'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> csv_file:</span><br><span class="line">        spam_reader = csv.reader(csv_file, delimiter=<span class="string">','</span>)</span><br><span class="line">        headers = next(spam_reader)</span><br><span class="line">        db = pymysql.connect(<span class="string">'localhost'</span>, <span class="string">'username'</span>, <span class="string">'password'</span>, <span class="string">'tripshistorydata'</span>)</span><br><span class="line">        cursor = db.cursor()</span><br><span class="line">        cursor.execute(<span class="string">'DROP TABLE IF EXISTS temp;'</span>)</span><br><span class="line">        sql = <span class="string">"""</span></span><br><span class="line"><span class="string">            create table temp(</span></span><br><span class="line"><span class="string">            Duration int not null,</span></span><br><span class="line"><span class="string">            StartDate char(50) not null,</span></span><br><span class="line"><span class="string">            EndDate char(50) not null,</span></span><br><span class="line"><span class="string">            StartStationNumber int not null,</span></span><br><span class="line"><span class="string">            StartStation char(100) not null,</span></span><br><span class="line"><span class="string">            EndStationNumber int not null,</span></span><br><span class="line"><span class="string">            EndStation char(100) not null,</span></span><br><span class="line"><span class="string">            BikeNumber Char(50) not null,</span></span><br><span class="line"><span class="string">            MemberType char(50) not null);</span></span><br><span class="line"><span class="string">            """</span></span><br><span class="line">        cursor.execute(sql)</span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> spam_reader:</span><br><span class="line">            param = (</span><br><span class="line">                int(row[<span class="number">0</span>]), row[<span class="number">1</span>], row[<span class="number">2</span>], int(row[<span class="number">3</span>]), row[<span class="number">4</span>], int(row[<span class="number">5</span>]), row[<span class="number">6</span>], row[<span class="number">7</span>], row[<span class="number">8</span>]</span><br><span class="line">            )</span><br><span class="line">            sql = <span class="string">"""insert into temp(</span></span><br><span class="line"><span class="string">            Duration, StartDate, EndDate, StartStationNumber, StartStation, EndStationNumber, EndStation, BikeNumber, MemberType</span></span><br><span class="line"><span class="string">            ) values(%s, %s, %s, %s, %s, %s, %s, %s, %s);"""</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                cursor.execute(sql, param)</span><br><span class="line">                db.commit()</span><br><span class="line">                <span class="comment"># 记住这句话</span></span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                print(e)</span><br><span class="line">                db.rollback()</span><br><span class="line">        </span><br><span class="line">        db.close()</span><br><span class="line">    stop = time.time()</span><br><span class="line">    cost = stop - start</span><br><span class="line">    print(cost)</span><br></pre></td></tr></table></figure>
+<p>但是吧，这么写实在太慢，睡了一个午觉还没导入完。那不行啊，那么有没有更快的办法呢？</p>
+<h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><p>答案当然是有的，为什么会那么慢，那是因为每一次<code>insert</code>的时候都会<code>commit</code>一次，这样当然会消耗很多时间。如果等所有数据都<code>insert</code>之后，只执行一次<code>commit</code>，当然就会快很多了。</p>
+<p>然后嘞，还可以去<code>my.ini</code>里修改<code>innodb_flush_log_at_trx_commit</code>这么一个参数。</p>
+<ul>
+<li><p>当<code>innodb_flush_log_at_trx_commit=1</code>时，每次事务提交时MySQL都会把<code>log buffer</code>的数据写入<code>log file</code>，并且flush，该模式为系统默认。</p>
+<blockquote>
+<p>该模式是最安全的，但也是最慢的一种方式。在<code>mysqld</code>服务崩溃或者服务器主机<code>crash</code>的情况下，<code>binary log</code>只有可能丢失最多一个语句或者一个事务。</p>
+</blockquote>
+</li>
+<li><p>当<code>innodb_flush_log_at_trx_commit=0</code>时，<code>log buffer</code>将每秒一次地写入<code>log file</code>中，并且<code>log file</code>的flush操作同时进行。该模式下在事务提交的时候，不会主动触发写入磁盘的操作。</p>
+<blockquote>
+<p>该模式速度最快，但不太安全，<code>mysqld</code>进程的崩溃会导致上一秒钟所有事务数据的丢失。</p>
+</blockquote>
+</li>
+<li><p>当<code>innodb_flush_log_at_trx_commit=2</code>时，每次事务提交时MySQL都会把<code>log buffer</code>的数据写入<code>log file</code>，但是flush操作并不会同时进行。该模式下，MySQL会每秒执行一次 flush操作。</p>
+<blockquote>
+<p>该模式速度较快，也比<code>innodb_flush_log_at_trx_commit=0</code>安全，只有在操作系统崩溃或者系统断电的情况下，上一秒钟所有事务数据才可能丢失。</p>
+</blockquote>
+</li>
+</ul>
+<p>综合起来，设置<code>innodb_flush_log_at_trx_commit=2</code>，然后重启MySQL服务器</p>
+<p>看看这次需要多长的时间。</p>
+<font color="red">264.5988073348999s</font>
+
+<h3 id="方案三"><a href="#方案三" class="headerlink" title="方案三"></a>方案三</h3><p><strong>MySQL有一个高效的导入方法，那就是<code>load data infile</code>。 </strong></p>
+<p>语法如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span>  [<span class="keyword">low_priority</span>] [<span class="keyword">local</span>] <span class="keyword">infile</span> <span class="string">'file_name txt'</span> [<span class="keyword">replace</span> | <span class="keyword">ignore</span>]</span><br><span class="line"><span class="keyword">into</span> <span class="keyword">table</span> tbl_name</span><br><span class="line">[<span class="keyword">fields</span></span><br><span class="line">[<span class="keyword">terminated</span> <span class="keyword">by</span><span class="string">'t'</span>]</span><br><span class="line">[<span class="keyword">OPTIONALLY</span>] <span class="keyword">enclosed</span> <span class="keyword">by</span> <span class="string">''</span>]</span><br><span class="line">[<span class="keyword">escaped</span> <span class="keyword">by</span><span class="string">'\' ]]</span></span><br><span class="line"><span class="string">[lines terminated by'</span>n<span class="string">']</span></span><br><span class="line"><span class="string">[ignore number lines]</span></span><br><span class="line"><span class="string">[(col_name,   )]</span></span><br></pre></td></tr></table></figure>
+<p><code>load data infile</code>语句从一个文本文件中以很高的速度读入一个表中。使用这个命令之前，<code>mysqld</code>进程（服务）必须已经在运行。为了安全原因，当读取位于服务器上的文本文件时，文件必须处于数据库目录或可被所有人读取。另外，为了对服务器上文件使用<code>load data infile</code>，在服务器主机上你必须有<code>file</code>的权限。</p>
+<ol>
+<li>如果你指定关键词<code>low_priority</code>，那么MySQL将会等到没有其他人读这个表的时候，才把插入数据。</li>
+<li>如果指定<code>local</code>关键词，则表明从客户主机读文件。如果没指定<code>local</code>，文件必须位于服务器上。</li>
+<li><code>replace</code>和<code>ignore</code>关键词控制对现有的唯一键记录的重复的处理。如果你指定<code>replace</code>，新行将代替有相同的唯一键值的现有行。如果你指定<code>ignore</code>，跳过有唯一键的现有行的重复行的输入。如果你不指定任何一个选项，当找到重复键时，出现一个错误，并且文本文件的余下部分被忽略。</li>
+<li>分隔符<ol>
+<li><code>fields</code>关键字指定了文件记段的分割格式，如果用到这个关键字，MySQL剖析器希望看到至少有下面的一个选项：<ul>
+<li><code>terminated by</code> 字段的分隔符</li>
+<li><code>enclosed by</code> 字段括起字符</li>
+<li><code>escaped by</code>  转义字符\</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LOAD</span> <span class="keyword">DATA</span> <span class="keyword">LOCAL</span> <span class="keyword">INFILE</span> <span class="string">'FileName'</span> <span class="keyword">REPLACE</span> </span><br><span class="line"><span class="keyword">INTO</span> <span class="keyword">TABLE</span> TableName</span><br><span class="line"><span class="keyword">FIELDS</span> </span><br><span class="line"><span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">','</span> </span><br><span class="line"><span class="keyword">OPTIONALLY</span> <span class="keyword">ENCLOSED</span> <span class="keyword">BY</span> <span class="string">''</span></span><br><span class="line"><span class="keyword">LINES</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'\n'</span></span><br><span class="line"><span class="keyword">IGNORE</span> <span class="number">1</span> <span class="keyword">lines</span>;</span><br></pre></td></tr></table></figure>
+<font color="red">64.813s</font>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/ningoy.github.io/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ningoy.github.io/2017/11/11/Uploadify插件的使用及兼容性/" rel="next" title="Uploadify插件的使用及兼容性">
+                <i class="fa fa-chevron-left"></i> Uploadify插件的使用及兼容性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ningoy.github.io/2018/03/24/面试题2：实现Singleton模式/" rel="prev" title="面试题2：实现Singleton模式">
+                面试题2：实现Singleton模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lenin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/ningoy.github.io/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/ningoy.github.io/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/ningoy.github.io/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/ningoy.github.io/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#方案一"><span class="nav-number">1.</span> <span class="nav-text">方案一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案二"><span class="nav-number">2.</span> <span class="nav-text">方案二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案三"><span class="nav-number">3.</span> <span class="nav-text">方案三</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lenin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/ningoy.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/ningoy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/ningoy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/ningoy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/ningoy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/ningoy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
