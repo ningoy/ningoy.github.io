@@ -324,7 +324,10 @@
       
         
           
-            <p>什么是ARIMA模型？ARIMA模型的全称是自回归移动平均模型（ARIMA，Autoregressive Integrated Moving Average Model），是统计模型中最常见的一种用来进行时间序列预测的模型。</p>
+            <h1 id="ARIMA模型"><a href="#ARIMA模型" class="headerlink" title="ARIMA模型"></a>ARIMA模型</h1><p>ARIMA模型，自回归移动平均模型（ARIMA，Autoregressive Integrated Moving Average Model），是统计模型中最常见的一种用来进行时间序列预测的模型。ARIMA模型旨在描绘数据的自回归性（autocorrelations）。</p>
+<p>在引入ARIMA模型之前，我们需要先讨论平稳性（stationarity）和差分时间序列（differencing time series）的相关知识。</p>
+<h2 id="平稳性和差分"><a href="#平稳性和差分" class="headerlink" title="平稳性和差分"></a>平稳性和差分</h2><p>平稳的时间序列的性质不随观测时间的变化而变化。因此具有趋势或季节性的时间序列不是平稳时间序列——趋势和季节性使得时间序列在不同时段呈现不同特质。与他们相反，白噪声序列（white noise series）则是平稳的——不管观测的时间如何变化，它看起来都应该是一样的。</p>
+<p><img src="http://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/stationary-1.png?x-oss-process=PicGo" alt="图中的时间序列有哪些是平稳的？（a）连续292天的谷歌股价; （b）连续292天谷歌股价的每日变化量; （c）美国各年的罢工总次数; （d）美国独立家庭住宅的每月价格; （e）按不变美元计算的美国的鸡蛋价格; （e）每月在澳大利亚维多利亚州被屠宰的猪的数量; （g）每年在加拿大西北的麦肯齐河停留的猞猁数量; （h）澳大利亚每月啤酒产量; （i）澳大利亚每月发电量"></p>
 <p>ARIMA模型的优缺点，优点是模型十分简单，只需要内生变量而不需要借助其他外生变量。以最简单的模型 Y = aX + b 为例，X 是自变量，Y是因变量，a 和 b 都是外生变量，是由模型的外部因素决定的。</p>
 <p>缺点：</p>
 <ol>
