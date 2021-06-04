@@ -231,7 +231,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ningoy.github.io/ningoy.github.io/2021/05/31/使用ARIMA模型进行时间序列分析/">
+    <link itemprop="mainEntityOfPage" href="https://ningoy.github.io/ningoy.github.io/2021/06/04/使用ARIMA模型进行时间序列分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lenin">
@@ -250,7 +250,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/ningoy.github.io/2021/05/31/使用ARIMA模型进行时间序列分析/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/ningoy.github.io/2021/06/04/使用ARIMA模型进行时间序列分析/" itemprop="url">使用ARIMA模型进行时间序列分析</a></h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-31T17:16:19+08:00">
-                2021-05-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-04T17:54:00+08:00">
+                2021-06-04
               </time>
             
 
@@ -272,6 +272,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/时序预测/" itemprop="url" rel="index">
+                    <span itemprop="name">时序预测</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -336,14 +358,11 @@
 </li>
 <li><p>ARIMA(1,1,0) = differenced first-order autoregressive model:<br>p=1,d=1,q=0. 说明时序数据在一阶差分化之后是稳定的和自回归的。即一个时刻的差分（y）只与上一个时刻的差分有关。<br>$$<br>yˆt=μ+ϕ1∗yt−1结合一阶差分的定义，也可以表示为：Yˆt−Yt−1=μ+ϕ1∗(Yt−1−Yt−2)或者Yˆt=μ+Yt−1+ϕ1∗(Yt−1−Yt−2)<br>$$</p>
 </li>
-</ol>
-<ol start="4">
-<li><p>ARIMA(0,1,1) = simple exponential smoothing with growth.<br>p=0, d=1 ,q=1.说明数据在一阶差分后市稳定的和移动平均的。即一个时刻的估计值的差分与上一个时刻的预测误差有关。<br>$$<br>yˆt=μ+α1∗et−1注意q=1的差分yt与p=1的差分yt的是不一样的其中，yˆt=Yˆt−Yˆt−1, et−1=Yt−1−Yˆt−1,设θ1=1−α1则也可以写成：Yˆt=μ+Yˆt−1+α1(Yt−1−Yˆt−1)=μ+Yt−1−θ1∗et−1<br>$$</p>
+<li><p>ARIMA(0,1,1) = simple exponential smoothing with growth.<br> p=0, d=1 ,q=1.说明数据在一阶差分后市稳定的和移动平均的。即一个时刻的估计值的差分与上一个时刻的预测误差有关。<br>$$<br>yˆt=μ+α1∗et−1注意q=1的差分yt与p=1的差分yt的是不一样的其中，yˆt=Yˆt−Yˆt−1, et−1=Yt−1−Yˆt−1,设θ1=1−α1则也可以写成：Yˆt=μ+Yˆt−1+α1(Yt−1−Yˆt−1)=μ+Yt−1−θ1∗et−1<br>$$</p>
 </li>
 <li><p>ARIMA(2,1,2)<br>在通过上面的例子，可以很轻松的写出它的预测模型：<br>$$<br>yˆt=μ+ϕ1∗yt−1+ϕ2∗yt−2−θ1∗et−1−θ2∗et−2也可以写成:Yˆt=μ+ϕ1∗(Yt−1−Yt−2)+ϕ2∗(Yt−2−Yt−3)−θ1∗(Yt−1−Yˆt−1)−θ2∗(Yt−2−Yˆt−2)<br>$$</p>
 </li>
-<li><p>ARIMA(2,2,2)<br>$$</p>
-<p>yˆt=μ+ϕ1∗yt−1+ϕ2∗yt−2−θ1∗et−1−θ2∗et−2Yˆt=μ+ϕ1∗(Yt−1−2Yt−2+Yt−3)+ϕ2∗(Yt−2−2Yt−3+Yt−4)−θ1∗(Yt−1−Yˆt−1)−θ2∗(Yt−2−Yˆt−2)<br>$$</p>
+<li><p>ARIMA(2,2,2)<br>$$<br>yˆt=μ+ϕ1∗yt−1+ϕ2∗yt−2−θ1∗et−1−θ2∗et−2Yˆt=μ+ϕ1∗(Yt−1−2Yt−2+Yt−3)+ϕ2∗(Yt−2−2Yt−3+Yt−4)−θ1∗(Yt−1−Yˆt−1)−θ2∗(Yt−2−Yˆt−2)<br>$$</p>
 </li>
 </ol>
 <p>ARIMA建模基本步骤</p>
@@ -2362,7 +2381,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/ningoy.github.io/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2373,7 +2392,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/ningoy.github.io/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

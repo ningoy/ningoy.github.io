@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="时序预测,">
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="Given an array of 2n integers, your task is to group these integers into n pairs of integer, say (a1, b1), (a2, b2), …, (an, bn) which makes sum of min(ai, bi) for all i from 1 to n as large as possi">
+<meta name="description" content="什么是ARIMA模型？ARIMA模型的全称是自回归移动平均模型（ARIMA，Autoregressive Integrated Moving Average Model），是统计模型中最常见的一种用来进行时间序列预测的模型。 ARIMA模型的优缺点，优点是模型十分简单，只需要内生变量而不需要借助其他外生变量。以最简单的模型 Y = aX + b 为例，X 是自变量，Y是因变量，a 和 b 都是外生">
+<meta name="keywords" content="时序预测">
 <meta property="og:type" content="article">
-<meta property="og:title" content="561. Array Partition I">
-<meta property="og:url" content="https://ningoy.github.io/2018/05/05/561-Array-Partition-I/index.html">
+<meta property="og:title" content="使用ARIMA模型进行时间序列分析">
+<meta property="og:url" content="https://ningoy.github.io/2021/06/04/使用ARIMA模型进行时间序列分析/index.html">
 <meta property="og:site_name" content="关爱颈椎成长协会">
-<meta property="og:description" content="Given an array of 2n integers, your task is to group these integers into n pairs of integer, say (a1, b1), (a2, b2), …, (an, bn) which makes sum of min(ai, bi) for all i from 1 to n as large as possi">
+<meta property="og:description" content="什么是ARIMA模型？ARIMA模型的全称是自回归移动平均模型（ARIMA，Autoregressive Integrated Moving Average Model），是统计模型中最常见的一种用来进行时间序列预测的模型。 ARIMA模型的优缺点，优点是模型十分简单，只需要内生变量而不需要借助其他外生变量。以最简单的模型 Y = aX + b 为例，X 是自变量，Y是因变量，a 和 b 都是外生">
 <meta property="og:locale" content="zh_Hans">
-<meta property="og:updated_time" content="2021-05-28T06:52:27.768Z">
+<meta property="og:updated_time" content="2021-06-04T09:55:03.709Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="561. Array Partition I">
-<meta name="twitter:description" content="Given an array of 2n integers, your task is to group these integers into n pairs of integer, say (a1, b1), (a2, b2), …, (an, bn) which makes sum of min(ai, bi) for all i from 1 to n as large as possi">
+<meta name="twitter:title" content="使用ARIMA模型进行时间序列分析">
+<meta name="twitter:description" content="什么是ARIMA模型？ARIMA模型的全称是自回归移动平均模型（ARIMA，Autoregressive Integrated Moving Average Model），是统计模型中最常见的一种用来进行时间序列预测的模型。 ARIMA模型的优缺点，优点是模型十分简单，只需要内生变量而不需要借助其他外生变量。以最简单的模型 Y = aX + b 为例，X 是自变量，Y是因变量，a 和 b 都是外生">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://ningoy.github.io/2018/05/05/561-Array-Partition-I/">
+  <link rel="canonical" href="https://ningoy.github.io/2021/06/04/使用ARIMA模型进行时间序列分析/">
 
 
 
 
 
-  <title>561. Array Partition I | 关爱颈椎成长协会</title>
+  <title>使用ARIMA模型进行时间序列分析 | 关爱颈椎成长协会</title>
   
 
 
@@ -234,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ningoy.github.io/ningoy.github.io/2018/05/05/561-Array-Partition-I/">
+    <link itemprop="mainEntityOfPage" href="https://ningoy.github.io/ningoy.github.io/2021/06/04/使用ARIMA模型进行时间序列分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lenin">
@@ -251,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">561. Array Partition I</h1>
+          <h1 class="post-title" itemprop="name headline">使用ARIMA模型进行时间序列分析</h1>
         
 
         <div class="post-meta">
@@ -263,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-05T15:42:00+08:00">
-                2018-05-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-04T17:54:00+08:00">
+                2021-06-04
               </time>
             
 
@@ -286,19 +287,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/ningoy.github.io/categories/刷题/" itemprop="url" rel="index">
-                    <span itemprop="name">刷题</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/ningoy.github.io/categories/刷题/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
+                  <a href="/ningoy.github.io/categories/时序预测/" itemprop="url" rel="index">
+                    <span itemprop="name">时序预测</span>
                   </a>
                 </span>
 
@@ -334,17 +324,54 @@
       
 
       
-        <blockquote>
-<p>Given an array of <strong>2n</strong> integers, your task is to group these integers into <strong>n</strong> pairs of integer, say (a1, b1), (a2, b2), …, (an, bn) which makes sum of min(ai, bi) for all i from 1 to n as large as possible. </p>
-</blockquote>
-<p><strong>Example 1:</strong> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,4,3,2]</span><br><span class="line"></span><br><span class="line">Output: 4</span><br><span class="line">Explanation: n is 2, and the maximum sum of pairs is 4 = min(1, 2) + min(3, 4).</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong> </p>
+        <p>什么是ARIMA模型？ARIMA模型的全称是自回归移动平均模型（ARIMA，Autoregressive Integrated Moving Average Model），是统计模型中最常见的一种用来进行时间序列预测的模型。</p>
+<p>ARIMA模型的优缺点，优点是模型十分简单，只需要内生变量而不需要借助其他外生变量。以最简单的模型 Y = aX + b 为例，X 是自变量，Y是因变量，a 和 b 都是外生变量，是由模型的外部因素决定的。</p>
+<p>缺点：</p>
 <ol>
-<li><strong>n</strong> is a positive integer, which is in the range of [1, 10000].</li>
-<li>All the integers in the array will be in the range of [-10000, 10000].</li>
+<li>要求时序数据是稳定的（stationary），或者通过差分化（differencing）后是稳定的。</li>
+<li>本质上只能捕捉线性关系，而不能捕捉非线性关系。</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">arrayPairSum</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">20001</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : nums)&#123;</span><br><span class="line">            count[i + <span class="number">10000</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">boolean</span> odd = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count.length; i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(count[i] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(odd)&#123;</span><br><span class="line">                    res += i - <span class="number">10000</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                odd = !odd;</span><br><span class="line">                count[i]--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么要如何判断时序数据是稳定的呢？</p>
+<p>一个时间序列的随机变量是稳定的，当且仅当它的统计特征都是独立于时间的（是关于时间的常量）。</p>
+<ol>
+<li>稳定的数据是没有趋势（trend），没有周期性（seasonality）的；即它的均值，在时间轴上拥有常量的振幅，并且它的方差，在时间轴上是趋于同一个稳定的值的。</li>
+<li>可以用Dickey-Fuller Test 进行假设检验。</li>
+</ol>
+<p>ARIMA的参数与数学形式</p>
+<p>ARIMA模型有三个参数p,d,q</p>
+<ul>
+<li>p – 代表预测模型中采用的时序数据本身的滞后数（lags），也叫做AR/Auto-Regressive项。</li>
+<li>d – 代表时序数据需要进行几阶差分化才是稳定的，也叫Integrated项。</li>
+<li>q – 代表预测模型中采用的预测误差的滞后数（lags），也叫MA/Moving Average项。</li>
+</ul>
+<p>差分 – 假设y表示t时刻的Y的差分</p>
+<p>ARIMA的预测模型可以表示为：</p>
+<p>Y的预测值 = 常量c and/or 一个或多个最近时间的Y的加权 and/or 一个或多个最近时间的预测误差。</p>
+<p>假设p,q,d已知：</p>
+<p>ARIMA用数学形式表示为:<br>$$<br>ytˆ=μ+ϕ1∗yt−1+…+ϕp∗yt−p+θ1∗et−1+…+θq∗et−q<br>其中,ϕ表示AR的系数，θ表示MA的系数<br>$$<br>ARIMA模型的几个特例</p>
+<ol>
+<li><p>ARIMA(0,1,0) = random walk:</p>
+<p>当d=1,p 和 q 为0 时，叫做random walk，每一个时刻的Y，只与上一时刻的Y有关。<br>$$<br>Yˆt=μ+Yt−1<br>$$</p>
+</li>
+<li><p>ARIMA(1,0,0) = first-order autoregressive model:</p>
+<p>当p=1,d=0,q=0,说明时序数据是稳定的和自相关的。一个时刻的Y值只与上一个时刻的Y值有关<br>$$<br>Yˆt=μ+ϕ1∗Yt−1.where, ϕ∈[−1,1],是一个斜率系数<br>$$</p>
+</li>
+<li><p>ARIMA(1,1,0) = differenced first-order autoregressive model:<br>p=1,d=1,q=0. 说明时序数据在一阶差分化之后是稳定的和自回归的。即一个时刻的差分（y）只与上一个时刻的差分有关。<br>$$<br>yˆt=μ+ϕ1∗yt−1结合一阶差分的定义，也可以表示为：Yˆt−Yt−1=μ+ϕ1∗(Yt−1−Yt−2)或者Yˆt=μ+Yt−1+ϕ1∗(Yt−1−Yt−2)<br>$$</p>
+</li>
+<li><p>ARIMA(0,1,1) = simple exponential smoothing with growth.<br> p=0, d=1 ,q=1.说明数据在一阶差分后市稳定的和移动平均的。即一个时刻的估计值的差分与上一个时刻的预测误差有关。<br>$$<br>yˆt=μ+α1∗et−1注意q=1的差分yt与p=1的差分yt的是不一样的其中，yˆt=Yˆt−Yˆt−1, et−1=Yt−1−Yˆt−1,设θ1=1−α1则也可以写成：Yˆt=μ+Yˆt−1+α1(Yt−1−Yˆt−1)=μ+Yt−1−θ1∗et−1<br>$$</p>
+</li>
+<li><p>ARIMA(2,1,2)<br>在通过上面的例子，可以很轻松的写出它的预测模型：<br>$$<br>yˆt=μ+ϕ1∗yt−1+ϕ2∗yt−2−θ1∗et−1−θ2∗et−2也可以写成:Yˆt=μ+ϕ1∗(Yt−1−Yt−2)+ϕ2∗(Yt−2−Yt−3)−θ1∗(Yt−1−Yˆt−1)−θ2∗(Yt−2−Yˆt−2)<br>$$</p>
+</li>
+<li><p>ARIMA(2,2,2)<br>$$<br>yˆt=μ+ϕ1∗yt−1+ϕ2∗yt−2−θ1∗et−1−θ2∗et−2Yˆt=μ+ϕ1∗(Yt−1−2Yt−2+Yt−3)+ϕ2∗(Yt−2−2Yt−3+Yt−4)−θ1∗(Yt−1−Yˆt−1)−θ2∗(Yt−2−Yˆt−2)<br>$$</p>
+</li>
+</ol>
+<p>ARIMA建模基本步骤</p>
+<ol>
+<li>获取被观测系统时间序列数据；</li>
+<li>对数据绘图，观测是否为平稳时间序列；对于非平稳时间序列要先进行d阶差分运算，化为平稳时间序列；</li>
+<li>经过第二步处理，已经得到平稳时间序列。要对平稳时间序列分别求得其自相关系数ACF 和偏自相关系数PACF，通过对自相关图和偏自相关图的分析，得到最佳的阶层 p 和阶数 q</li>
+<li>由以上得到的d、q、p，得到ARIMA模型。然后开始对得到的模型进行模型检验。</li>
+</ol>
 
       
     </div>
@@ -360,6 +387,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/ningoy.github.io/tags/时序预测/" rel="tag"># 时序预测</a>
+          
+        </div>
+      
 
       
       
@@ -369,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/ningoy.github.io/2018/03/24/面试题2：实现Singleton模式/" rel="next" title="面试题2：实现Singleton模式">
-                <i class="fa fa-chevron-left"></i> 面试题2：实现Singleton模式
+              <a href="/ningoy.github.io/2020/03/27/处理数据常用的命令行工具/" rel="next" title="处理数据常用的命令行工具">
+                <i class="fa fa-chevron-left"></i> 处理数据常用的命令行工具
               </a>
             
           </div>
@@ -378,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/ningoy.github.io/2020/03/27/处理数据常用的命令行工具/" rel="prev" title="处理数据常用的命令行工具">
-                处理数据常用的命令行工具 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
