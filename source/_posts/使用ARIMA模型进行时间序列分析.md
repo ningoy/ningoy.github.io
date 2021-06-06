@@ -5,6 +5,8 @@ tags:
 - 时序预测
 categories:
 - 时序预测
+
+mathjax: true
 ---
 
 
