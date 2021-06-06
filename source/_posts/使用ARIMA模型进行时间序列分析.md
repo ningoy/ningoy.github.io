@@ -11,13 +11,17 @@ categories:
 
 # ARIMA模型
 
-ARIMA模型，自回归移动平均模型（ARIMA，Autoregressive Integrated Moving Average Model），是统计模型中最常见的一种用来进行时间序列预测的模型，旨在描绘数据的自回归性（autocorrelations）。
+ARIMA模型，自回归移动平均模型（ARIMA，Autoregressive Integrated Moving Average Model），是统计模型中最常见的一种用来进行时间序列预测的模型，旨在描绘数据的自回归性（autocorrelations）。如果观测值并非彼此独立，一个观测值可能会在i个时间单位后与另一个观测值相关，形成一种称为自相关的关系。自相关可以削减基于时间的预测模型（例如时间序列图）的准确性，并导致数据的错误解释。
 
 在引入ARIMA模型之前，我们需要先讨论平稳性（stationarity）和差分时间序列（differencing time series）的相关知识。
 
 ## 平稳性和差分
 
 平稳的时间序列的性质不随观测时间的变化而变化。因此具有趋势或季节性的时间序列不是平稳时间序列——趋势和季节性使得时间序列在不同时段呈现不同特质。与他们相反，白噪声序列（white noise series）则是平稳的——不管观测的时间如何变化，它看起来都应该是一样的。
+
+在判断平稳性上，下面这个例子容易让人混淆：如果一个循环变化的时间序列没有趋势和季节性，那么它仍然是平稳的。这是因为这些循环变化并没有一个固定的周期，因此在进行观测之前我们无法知道循环变化的峰值和谷值会出现在哪个位置。
+
+一般而言，一个平稳的时间序列从长期来看不存在可预测的特征。它的时间曲线图（time plots）反映出这个序列近似于水平（尽管可能存在一些周期性的变化）并保持固定的方差。
 
 ![图中的时间序列有哪些是平稳的？（a）连续292天的谷歌股价; （b）连续292天谷歌股价的每日变化量; （c）美国各年的罢工总次数; （d）美国独立家庭住宅的每月价格; （e）按不变美元计算的美国的鸡蛋价格; （e）每月在澳大利亚维多利亚州被屠宰的猪的数量; （g）每年在加拿大西北的麦肯齐河停留的猞猁数量; （h）澳大利亚每月啤酒产量; （i）澳大利亚每月发电量](http://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/stationary-1.png?x-oss-process=PicGo)
 
@@ -31,81 +35,85 @@ ARIMA模型，自回归移动平均模型（ARIMA，Autoregressive Integrated Mo
 
 ### 差分
 
-在图 [8.1](https://otexts.com/fppcn/stationarity.html#fig:stationary)中，我们注意到（a）中谷歌股价数并不平稳，但（b）中谷歌股价每天的变化量则是平稳的。这向我们展示了一种让非平稳时间序列变平稳的方法——计算相邻观测值之间的差值，这种方法被称为**差分**。
+在图 [8.1](http://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/stationary-1.png?x-oss-process=PicGo)中，我们注意到（a）中谷歌股价数并不平稳，但（b）中谷歌股价每天的变化量则是平稳的。这向我们展示了一种让非平稳时间序列变平稳的方法——计算相邻观测值之间的差值，这种方法被称为**差分**。
 
 诸如对数变换的变换方法可用于平稳化（stabilize）时间序列的方差。差分则可以通过去除时间序列中的一些变化特征来平稳化它的均值，并因此消除（或减小）时间序列的趋势和季节性。
 
-和时间曲线图一样，自相关图（ACF图）也能帮助我们识别非平稳时间序列。 对于一个平稳时间序列,自相关系数（ACF）会快速的下降到接近 0 的水平，然而非平稳时间序列的自相关系数会下降的比较缓慢。同样的,非平稳时间序列的 r1r1 通常非常大并且为正值。
+和时间曲线图一样，自相关图（ACF图）也能帮助我们识别非平稳时间序列。 对于一个平稳时间序列，自相关系数（ACF）会快速的下降到接近 0 的水平，然而非平稳时间序列的自相关系数会下降的比较缓慢。同样的，非平稳时间序列的 $r_1$ 通常非常大并且为正值。
 
-![谷歌股价（左图）和谷歌股价的每日变化（右图）的自相关系数。](http://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/acfstationary-1.png?x-oss-process=PicGo)
+<img src="https://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/20210606013141.png?x-oss-process=PicGo" alt="谷歌股价（左图）和谷歌股价的每日变化（右图）的自相关系数。" style="zoom:67%;" />
 
 > 图 8.2: 谷歌股价（左图）和谷歌股价的每日变化（右图）的自相关系数。
 
-```R
-Box.test(diff(goog200),lag=10,type="Ljung-Box")
-#> 
-#>  Box-Ljung test
-#> 
-#> data:  diff(goog200)
-#> X-squared = 11, df = 10, p-value = 0.4
+```python
+import yfinance as yf
+import statsmodels.api as sm
+goog = yf.download("GOOG", start="2013-01-01", end="2013-12-06")
+sm.stats.acorr_ljungbox(goog['Close'] - goog['Open'], lags=[10], return_df=True)
+
+# 		lb_stat		lb_pvalue
+# 10	10.498818	0.397872
 ```
 
-差分后的谷歌股价的自相关图看起来像白噪声序列。所有自回归系数都在 95% 的置信度以内，并且 Ljung-Box 检验中 Q∗Q∗ 统计量的*p*值为 0.355 (for h=10h=10)。这反映出谷歌股价的*每日变化*在本质上是一个与过去时间无关的随机值。
+差分后的谷歌股价的自相关图看起来像白噪声序列。所有自回归系数都在95%的置信度以内，并且 Ljung-Box 检验中 $Q^*$ 统计量的*p*值为 0.355 (for $h=10$)。这反映出谷歌股价的*每日变化*在本质上是一个与过去时间无关的随机值。
+
 
 ### 随机游走模型
 
 差分序列是指原序列的连续观测值之间的*变化值*组成的时间序列，它可以被表示为：
 $$
-y′t=yt−yt−1.
+y'_t = y_t - y_{t-1}.
 $$
-差分序列的长度为 T−1T−1，因为 t=1t=1 时，公式中的差值无法计算。
+差分序列的长度为 $T-1$，因为$t=1$时，公式中的差值无法计算。
 
 当差分序列是白噪声时，原序列的模型可以表示为：
 $$
-yt−yt−1=εt,
+y_t - y_{t-1} = \varepsilon_t,
 $$
-这里的 εtεt 为白噪声。调整上式,即可得到“随机游走”模型：
+这里的$\varepsilon_t$为白噪声。调整上式，即可得到“随机游走”模型：
 $$
-yt=yt−1+εt.
+y_t = y_{t-1} + \varepsilon_t.
 $$
-随机游走模型在非平稳时间序列数据中应用广泛,特别是金融和经济数据.典型的随机游走通常具有以下特征：
+随机游走模型在非平稳时间序列数据中应用广泛，特别是金融和经济数据。典型的随机游走通常具有以下特征：
 
 - 长期的明显上升或下降趋势。
 - 游走方向上突然的、不能预测的变化。
 
-由于未来变化是不可预测的，随机游走模型的预测值为上一次观测值，并且其上升和下降的可能性相同。因此，随机游走模型适用于朴素（naive）的预测，这在章节[3.1](https://otexts.com/fppcn/simple-methods.html#simple-methods)中已经提到过了。
+由于未来变化是不可预测的，随机游走模型的预测值为上一次观测值，并且其上升和下降的可能性相同。因此，随机游走模型适用于朴素（naive）的预测。
 
-通过稍许改进,我们可以让差值均值不为零. 从而：
+通过稍许改进，我们可以让差值均值不为零。从而：
 $$
-yt−yt−1=c+εtoryt=c+yt−1+εt.
+y_t - y_{t-1} = c + \varepsilon_t\quad\text{or}\quad {y_t = c + y_{t-1} + \varepsilon_t}\: .
 $$
-cc 值是连续观测值变化的平均值。如果 cc 值为正，则之前的平均变化情况是增长的,因此 ytyt 将倾向于继续向上漂移（drift）。反之如果 cc 值为负，ytyt 将倾向于向下漂移。
-
-这就是本书[3.1](https://otexts.com/fppcn/simple-methods.html#simple-methods)章节中讨论的漂移方法背后的模型。
+$c$值是连续观测值变化的平均值。如果$c$值为正，则之前的平均变化情况是增长的，因此$y_t$将倾向于继续向上漂移（drift）。反之如果$c$值为负，$y_t$将倾向于向下漂移。
 
 ### 二阶差分
 
 有时差分后的数据仍然不平稳，所以可能需要再一次对数据进行差分来得到一个平稳的序列：
 $$
-y′′t=y′t−y′t−1=(yt−yt−1)−(yt−1−yt−2)=yt−2yt−1+yt−2.
+\begin{align*}
+  y''_{t}  &=  y'_{t}  - y'_{t - 1} \\
+           &= (y_t - y_{t-1}) - (y_{t-1}-y_{t-2})\\
+           &= y_t - 2y_{t-1} +y_{t-2}.
+\end{align*}
 $$
-在这种情况下，序列 y′′tyt″ 的长度为 T−2T−2。之后我们可以对原数据的“变化的变化”进行建模。在现实应用中，通常没有必要进行二阶以上的差分。
+在这种情况下，序列$y_t''$的长度为$T-2$。之后我们可以对原数据的“变化的变化”进行建模。在现实应用中，通常没有必要进行二阶以上的差分。
 
 ## 季节性差分
 
 季节性差分是对一个观测值和相对应的前一年的观测值之间进行差分。因此有：
 $$
-y′t=yt−yt−m,
+y_t' = y_t - y_{t-m},
 $$
-其中 m=m= 一年中的季节数量。这也被称为“延迟-mm 差值”，因为相减的两个观测值之间的时间间隔为 mm。
+其中$m=$一年中的季节数量。这也被称为“延迟-$m$差值”，因为相减的两个观测值之间的时间间隔为$m$。
 
 如果季节性差分数据是白噪声，则原数据可以用一个合适的模型来拟合：
 $$
-yt=yt−m+εt.
+y_t = y_{t-m}+\varepsilon_t.
 $$
-这个模型的预测值等于对应季节的上一次观测值。换言之，这个模型提供季节性的朴素（naive）预测，本书[3.1](https://otexts.com/fppcn/simple-methods.html#simple-methods)有相关的介绍。
+这个模型的预测值等于对应季节的上一次观测值。换言之，这个模型提供季节性的朴素（naive）预测。
 
-图[8.3](https://otexts.com/fppcn/stationarity.html#fig:a10diff) 中下方的图显示的是 A10（抗糖尿病）药剂在澳大利亚月销售量的对数的季节差值。经过变换和差分，序列变得相对平稳。
+图[8.3](https://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/20210606222125.png?x-oss-process=PicGo) 中下方的图显示的是 A10（抗糖尿病）药剂在澳大利亚月销售量的对数的季节差值。经过变换和差分，序列变得相对平稳。
 
 ```R
 cbind("销售量 ($百万)" = a10,
@@ -118,13 +126,13 @@ cbind("销售量 ($百万)" = a10,
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![A10（抗糖尿病）药剂销量的对数和季节性差值数据，对数变换稳定了方差，而季节性差分去除了数据的趋势和季节性。](https://otexts.com/fppcn/fpp_files/figure-html/a10diff-1.png)
+![A10（抗糖尿病）药剂销量的对数和季节性差值数据，对数变换稳定了方差，而季节性差分去除了数据的趋势和季节性。](https://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/20210606222125.png?x-oss-process=PicGo)
 
 > 图 8.3: A10（抗糖尿病）药剂销量的对数和季节性差值数据，对数变换稳定了方差，而季节性差分去除了数据的趋势和季节性。
 
 为了区别季节差分和一般的差分，我们有时将一般的差分称为“一步差分”，即差值的延迟期数为 1。
 
-正如图[8.4](https://otexts.com/fppcn/stationarity.html#fig:usmelec)所示，我们有时会同时使用季节性差分和一般的差分方法来得到平稳时间序列。在图中，我们先对数据进行对数变换（第二幅图），之后进行季节性差分（第三幅图）。经过上述操作后的数据仍然看起来有点非平稳，所以我们又进行了一次差分（第四幅图）。
+正如图[8.4](https://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/20210606222427.png?x-oss-process=PicGo)所示，我们有时会同时使用季节性差分和一般的差分方法来得到平稳时间序列。在图中，我们先对数据进行对数变换（第二幅图），之后进行季节性差分（第三幅图）。经过上述操作后的数据仍然看起来有点非平稳，所以我们又进行了一次差分（第四幅图）。
 
 ```R
 cbind("十亿千瓦时" = usmelec,
@@ -138,17 +146,21 @@ cbind("十亿千瓦时" = usmelec,
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![第一幅图：美国电网每月发电量 (十亿千瓦时)。其他图显示的是该数据经过不同的变换和差分后的情况。](https://otexts.com/fppcn/fpp_files/figure-html/usmelec-1.png)
+![第一幅图：美国电网每月发电量 (十亿千瓦时)。其他图显示的是该数据经过不同的变换和差分后的情况。](https://wxbfans-ink.oss-cn-beijing.aliyuncs.com/img/20210606222427.png?x-oss-process=PicGo)
 
 > 图 8.4: 第一幅图：美国电网每月发电量 (十亿千瓦时)。其他图显示的是该数据经过不同的变换和差分后的情况。
 
-选择使用哪些差分方式具有一定的主观性。图[8.3](https://otexts.com/fppcn/stationarity.html#fig:a10diff)中季节性差分的数据看起来和图[8.4](https://otexts.com/fppcn/stationarity.html#fig:usmelec)中季节性差分的数据差异并不大。在后一种情况中，我们可能会使用季节性差分后的数据，而不是进一步对数据进行差分。在前一种情况中，我们也可能认为季节性差分后的数据仍然不够平稳，因而进一步进行差分。我们将在后文中讨论一些严谨的差分检验,然而选择使用何种方式仍然是一个主观选择的过程，不同的分析师可能会做出不同的选择。
+选择使用哪些差分方式具有一定的主观性。图[8.3](https://otexts.com/fppcn/stationarity.html#fig:a10diff)中季节性差分的数据看起来和图[8.4](https://otexts.com/fppcn/stationarity.html#fig:usmelec)中季节性差分的数据差异并不大。在后一种情况中，我们可能会使用季节性差分后的数据，而不是进一步对数据进行差分。在前一种情况中，我们也可能认为季节性差分后的数据仍然不够平稳，因而进一步进行差分。我们将在后文中讨论一些严谨的差分检验，然而选择使用何种方式仍然是一个主观选择的过程，不同的分析师可能会做出不同的选择。
 
-假如用 y′t=yt−yt−myt′=yt−yt−m 表示季节性的差分序列，那么它的二阶差分序列则为：
+假如用$y'_t = y_t - y_{t-m}$表示季节性的差分序列，那么它的二阶差分序列则为：
 $$
-y′′t=y′t−y′t−1=(yt−yt−m)−(yt−1−yt−m−1)=yt−yt−1−yt−m+yt−m−1
+\begin{align*}
+y''_t &= y'_t - y'_{t-1} \\
+      &= (y_t - y_{t-m}) - (y_{t-1} - y_{t-m-1}) \\
+      &= y_t -y_{t-1} - y_{t-m} + y_{t-m-1}\:
+\end{align*}
 $$
-当季节性差值和第一差值都被使用时，两者的先后顺序并不会影响结果——变换顺序后的结果仍是一样的。然而，如果数据的季节性特征比较强，我们建议先进行季节性差分，因为有时经过季节性差分的数据已经足够平稳，没有必要进行后续的差分。如果先进行第一差分,我们仍将需要做一次季节性差分。
+当季节性差值和第一差值都被使用时，两者的先后顺序并不会影响结果——变换顺序后的结果仍是一样的。然而，如果数据的季节性特征比较强，我们建议先进行季节性差分，因为有时经过季节性差分的数据已经足够平稳，没有必要进行后续的差分。如果先进行第一差分，我们仍将需要做一次季节性差分。
 
 当我们使用差分时，有一点非常重要：差值应该是可解释（interpretable）的。第一差分是相邻观测值之间的差值，季节性差分是相邻年份的观测值的变化。其他延迟期数的差分很难和这两者一样易于解释，因此应该尽力避免。
 
@@ -156,43 +168,52 @@ $$
 
 *单位根检验*是一种更客观的判定是否需要差分的方法。这个针对平稳性的统计假设检验被用于判断是否需要差分方法来让数据更平稳。
 
-单位根检验的方法有很多种，它们基于不同的假设，因此可能产生相互矛盾的结果。在我们的分析中，采用 *Kwiatkowski-Phillips-Schmidt-Shin (KPSS)* 检验(Kwiatkowski, Phillips, Schmidt, & Shin, [1992](https://otexts.com/fppcn/stationarity.html#ref-KPSS92))。在此检验中，原假设为数据是平稳的，我们要寻找能够证明原假设是错误的证据。因此，很小的P值（例如小于0.05）说明需要进行差分。该检验可以使用程序包[**urca**](https://cran.r-project.org/package=urca)中的 `ur.kpss()` 函数进行计算。
+单位根检验的方法有很多种，它们基于不同的假设，因此可能产生相互矛盾的结果。在我们的分析中，采用 *Kwiatkowski-Phillips-Schmidt-Shin (KPSS)* 检验(Kwiatkowski, Phillips, Schmidt, & Shin, [1992](https://otexts.com/fppcn/stationarity.html#ref-KPSS92))。在此检验中，原假设为数据是平稳的，我们要寻找能够证明原假设是错误的证据。因此，很小的P值（例如小于0.05）说明需要进行差分。该检验可以使用程序包[**statsmodels**](https://www.statsmodels.org/stable/index.html)中的 `statsmodels.tsa.stattools.kpss()` 函数进行计算。
 
 例如，让我们对谷歌的股价数据进行该检验。
 
 ```R
-library(urca)
-goog %>% ur.kpss() %>% summary()
-#> 
-#> ####################### 
-#> # KPSS Unit Root Test # 
-#> ####################### 
-#> 
-#> Test is of type: mu with 7 lags. 
-#> 
-#> Value of test-statistic is: 10.72 
-#> 
-#> Critical value for a significance level of: 
-#>                 10pct  5pct 2.5pct  1pct
-#> critical values 0.347 0.463  0.574 0.739
+from statsmodels.tsa.stattools import kpss
+import pandas as pd
+import yfinance as yf
+data = yf.download("GOOG", start="2013-01-01", end="2013-12-06")
+kpss_output = pd.Series(kpss(data['Close'], regression='c')[0:3], 
+          index=['Test Statistic', 'p-value', 'Lags used'])
+for key, value in kpss(data['Close'], regression='c')[3].items():
+    kpss_output['Critical Value (%s)' % key] = value
+kpss_output
+# Test Statistic            1.280268
+#
+# p-value                   0.010000
+# Lags used                15.000000
+# Critical Value (10%)      0.347000
+# Critical Value (5%)       0.463000
+# Critical Value (2.5%)     0.574000
+# Critical Value (1%)       0.739000
+# dtype: float64
 ```
 
-检验统计量的值远大于临界值 1%，可以拒绝原假设，也就是说，该序列不平稳。我们可以对对数据进行差分，再次进行检验。
+检验统计量的值远大于临界值 1%，可以拒绝原假设，也就是说，该序列不平稳。我们可以对数据进行差分，再次进行检验。
 
-```R
-goog %>% diff() %>% ur.kpss() %>% summary()
-#> 
-#> ####################### 
-#> # KPSS Unit Root Test # 
-#> ####################### 
-#> 
-#> Test is of type: mu with 7 lags. 
-#> 
-#> Value of test-statistic is: 0.0324 
-#> 
-#> Critical value for a significance level of: 
-#>                 10pct  5pct 2.5pct  1pct
-#> critical values 0.347 0.463  0.574 0.739
+```python
+from statsmodels.tsa.stattools import kpss
+import pandas as pd
+import yfinance as yf
+data = yf.download("GOOG", start="2013-01-01", end="2013-12-06")
+kpss_output = pd.Series(kpss(data['Close'] - data['Open'], regression='c')[0:3], 
+          index=['Test Statistic', 'p-value', 'Lags used'])
+for key, value in kpss(data['Close'] - data['Open'], regression='c')[3].items():
+    kpss_output['Critical Value (%s)' % key] = value
+kpss_output
+# Test Statistic            0.088083
+# 
+# p-value                   0.100000
+# Lags used                15.000000
+# Critical Value (10%)      0.347000
+# Critical Value (5%)       0.463000
+# Critical Value (2.5%)     0.574000
+# Critical Value (1%)       0.739000
+# dtype: float64
 ```
 
 这次检验的统计量的值很小，处在期望的范围以内，因此可以推断出差分后的序列是平稳的。
@@ -206,11 +227,11 @@ ndiffs(goog)
 
 从上面的 KPSS 检验可以看出，需要进行一次差分来让`goog`数据变得平稳。
 
-与上述函数类似，`nsdiffs`函数可以用来确定是否需要进行季节性差分，，它通过[6.7](https://otexts.com/fppcn/seasonal-strength.html#seasonal-strength)中介绍的季节性强度来确定合适的季节性差分次数，如果 FS<0.64FS<0.64，不需要进行季节性差分，否则需要进行一次季节性差分。
+与上述函数类似，`nsdiffs`函数可以用来确定是否需要进行季节性差分，它通过季节性强度来确定合适的季节性差分次数，如果$F_S<0.64$，不需要进行季节性差分，否则需要进行一次季节性差分。
 
 对美国月度用电数据使用`nsdiffs()`函数。
 
-```
+```R
 usmelec %>% log() %>% nsdiffs()
 #> [1] 1
 usmelec %>% log() %>% diff(lag=12) %>% ndiffs()
@@ -219,7 +240,9 @@ usmelec %>% log() %>% diff(lag=12) %>% ndiffs()
 
 由于`nsdiffs()`函数返回 1，（说明需要进行一次季节性差分），我们对季节差分后的数据运行`ndiffs()`函数。这些函数的运行结果说明我们应该进行一次季节性差分和一次一步差分。
 
+### 参考文献
 
+Hyndman R J, Athanasopoulos G. Forecasting: principles and practice[M]. OTexts, 2018.
 
 
 
