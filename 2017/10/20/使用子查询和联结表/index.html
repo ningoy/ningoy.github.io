@@ -1,132 +1,50 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="zh_Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ningoy.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/ningoy.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/ningoy.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/ningoy.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/ningoy.github.io/css/main.css">
 
 
+<link rel="stylesheet" href="/ningoy.github.io/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ningoy.github.io","root":"/ningoy.github.io/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/ningoy.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/ningoy.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/ningoy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/ningoy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/ningoy.github.io/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/ningoy.github.io/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/ningoy.github.io/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="SQL,">
-
-
-
-
-
-  <link rel="alternate" href="/ningoy.github.io/rss2.xml" title="关爱颈椎成长协会" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="使用子查询和联结表使用子查询利用子查询进行过滤假设： 订单存储在两个表中。对于包含订单号、客户ID、订单日期的每个订单，orders表存储一行，各订单的物品存储在相关的orderitems表中。orders 表不存储客户信息。它只存储客户的ID。实际的客户信息存储在customers表中。 现在假如需要列出订购物品TNT2 的所有客户，应该怎样检索？  检索包含物品TNT2 的所有订单的编号。 检">
+  <meta name="description" content="使用子查询和联结表 使用子查询 利用子查询进行过滤 假设： 订单存储在两个表中。对于包含订单号、客户ID、订单日期的每个订单，orders表存储一行，各订单的物品存储在相关的orderitems表中。orders 表不存储客户信息。它只存储客户的ID。实际的客户信息存储在customers表中。 现在假如需要列出订购物品TNT2 的所有客户，应该怎样检索？  检索包含物品TNT2 的">
 <meta name="keywords" content="SQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用子查询和联结表">
 <meta property="og:url" content="https://ningoy.github.io/2017/10/20/使用子查询和联结表/index.html">
 <meta property="og:site_name" content="关爱颈椎成长协会">
-<meta property="og:description" content="使用子查询和联结表使用子查询利用子查询进行过滤假设： 订单存储在两个表中。对于包含订单号、客户ID、订单日期的每个订单，orders表存储一行，各订单的物品存储在相关的orderitems表中。orders 表不存储客户信息。它只存储客户的ID。实际的客户信息存储在customers表中。 现在假如需要列出订购物品TNT2 的所有客户，应该怎样检索？  检索包含物品TNT2 的所有订单的编号。 检">
-<meta property="og:locale" content="zh_Hans">
+<meta property="og:description" content="使用子查询和联结表 使用子查询 利用子查询进行过滤 假设： 订单存储在两个表中。对于包含订单号、客户ID、订单日期的每个订单，orders表存储一行，各订单的物品存储在相关的orderitems表中。orders 表不存储客户信息。它只存储客户的ID。实际的客户信息存储在customers表中。 现在假如需要列出订购物品TNT2 的所有客户，应该怎样检索？  检索包含物品TNT2 的">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-05-28T06:52:27.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用子查询和联结表">
-<meta name="twitter:description" content="使用子查询和联结表使用子查询利用子查询进行过滤假设： 订单存储在两个表中。对于包含订单号、客户ID、订单日期的每个订单，orders表存储一行，各订单的物品存储在相关的orderitems表中。orders 表不存储客户信息。它只存储客户的ID。实际的客户信息存储在customers表中。 现在假如需要列出订购物品TNT2 的所有客户，应该怎样检索？  检索包含物品TNT2 的所有订单的编号。 检">
+<meta name="twitter:description" content="使用子查询和联结表 使用子查询 利用子查询进行过滤 假设： 订单存储在两个表中。对于包含订单号、客户ID、订单日期的每个订单，orders表存储一行，各订单的物品存储在相关的orderitems表中。orders 表不存储客户信息。它只存储客户的ID。实际的客户信息存储在customers表中。 现在假如需要列出订购物品TNT2 的所有客户，应该怎样检索？  检索包含物品TNT2 的">
+
+<link rel="canonical" href="https://ningoy.github.io/2017/10/20/使用子查询和联结表/">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/ningoy.github.io/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
-
-
-
-  <link rel="canonical" href="https://ningoy.github.io/2017/10/20/使用子查询和联结表/">
-
-
-
-
 
   <title>使用子查询和联结表 | 关爱颈椎成长协会</title>
   
@@ -136,217 +54,182 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh_Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/ningoy.github.io/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">关爱颈椎成长协会</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/ningoy.github.io/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">关爱颈椎成长协会</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/ningoy.github.io/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/ningoy.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/ningoy.github.io/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/ningoy.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ningoy.github.io/ningoy.github.io/2017/10/20/使用子查询和联结表/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ningoy.github.io/2017/10/20/使用子查询和联结表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lenin">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/ningoy.github.io/images/avatar.gif">
+      <meta itemprop="name" content="Lenin">
+      <meta itemprop="description" content="">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="关爱颈椎成长协会">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">使用子查询和联结表</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          使用子查询和联结表
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T19:15:34+08:00">
-                2017-10-20
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/ningoy.github.io/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/ningoy.github.io/categories/读书笔记/计算机科学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机科学</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/ningoy.github.io/categories/读书笔记/计算机科学/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/ningoy.github.io/categories/读书笔记/计算机科学/数据库/MySQL必知必会/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL必知必会</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2017-10-20 19:15:34" itemprop="dateCreated datePublished" datetime="2017-10-20T19:15:34+08:00">2017-10-20</time>
             </span>
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-28 14:52:27" itemprop="dateModified" datetime="2021-05-28T14:52:27+08:00">2021-05-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/读书笔记/" itemprop="url" rel="index"><span itemprop="name">读书笔记</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/读书笔记/计算机科学/" itemprop="url" rel="index"><span itemprop="name">计算机科学</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/读书笔记/计算机科学/数据库/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/ningoy.github.io/categories/读书笔记/计算机科学/数据库/MySQL必知必会/" itemprop="url" rel="index"><span itemprop="name">MySQL必知必会</span></a>
+                </span>
+            </span>
 
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -354,13 +237,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h1 id="使用子查询和联结表"><a href="#使用子查询和联结表" class="headerlink" title="使用子查询和联结表"></a>使用子查询和联结表</h1><h2 id="使用子查询"><a href="#使用子查询" class="headerlink" title="使用子查询"></a>使用子查询</h2><h3 id="利用子查询进行过滤"><a href="#利用子查询进行过滤" class="headerlink" title="利用子查询进行过滤"></a>利用子查询进行过滤</h3><p>假设：</p>
+        <h1 id="使用子查询和联结表">使用子查询和联结表</h1>
+<h2 id="使用子查询">使用子查询</h2>
+<h3 id="利用子查询进行过滤">利用子查询进行过滤</h3>
+<p>假设：</p>
 <p>订单存储在两个表中。对于包含订单号、客户ID、订单日期的每个订单，<code>orders</code>表存储一行，各订单的物品存储在相关的<code>orderitems</code>表中。<code>orders</code> 表不存储客户信息。它只存储客户的ID。实际的客户信息存储在<code>customers</code>表中。</p>
 <p>现在假如需要列出订购物品<code>TNT2</code> 的所有客户，应该怎样检索？</p>
-<ol>
+<ol type="1">
 <li>检索包含物品<code>TNT2</code> 的所有订单的编号。</li>
 <li>检索具有前一步骤列出的订单编号的所有客户的ID。</li>
 <li>检索前一步骤返回的所有客户ID的客户信息。</li>
@@ -373,9 +256,10 @@
 <blockquote>
 <p><strong>列必须匹配</strong> 在<code>WHERE</code> 子句中使用子查询，应该保证<code>SELECT</code> 语句具有与<code>WHERE</code> 子句中相同数目的列。通常，子查询将返回单个列并且与单个列匹配，但如果需要也可以使用多个列。</p>
 </blockquote>
-<h3 id="作为计算字段使用子查询"><a href="#作为计算字段使用子查询" class="headerlink" title="作为计算字段使用子查询"></a>作为计算字段使用子查询</h3><p>使用子查询的另一方法是创建计算字段。假如需要显示<code>customers</code> 表中每个客户的订单总数。订单与相应的客户ID存储在<code>orders</code> 表中。</p>
+<h3 id="作为计算字段使用子查询">作为计算字段使用子查询</h3>
+<p>使用子查询的另一方法是创建计算字段。假如需要显示<code>customers</code> 表中每个客户的订单总数。订单与相应的客户ID存储在<code>orders</code> 表中。</p>
 <p>为了执行这个操作，遵循下面的步骤。</p>
-<ol>
+<ol type="1">
 <li>从<code>customers</code> 表中检索客户列表。</li>
 <li>对于检索出的每个客户，统计其在<code>orders</code> 表中的订单数目。</li>
 </ol>
@@ -390,8 +274,11 @@
 <p><strong>逐渐增加子查询来建立查询 </strong></p>
 <p>用子查询测试和调试查询很有技巧性，特别是在这些语句的复杂性不断增加的情况下更是如此。用子查询建立（和测试）查询的最可靠的方法是逐渐进行，这与MySQL处理它们的方法非常相同。首先，建立和测试最内层的查询。然后，用硬编码数据建立和测试外层查询，并且仅在确认它正常后才嵌入子查询。这时，再次测试它。对于要增加的每个查询，重复这些步骤。这样做仅给构造查询增加了一点点时间，但节省了以后（找出查询为什么不正常）的大量时间，并且极大地提高了查询一开始就正常工作的可能性。</p>
 </blockquote>
-<h2 id="联结表"><a href="#联结表" class="headerlink" title="联结表"></a>联结表</h2><h2 id="联结"><a href="#联结" class="headerlink" title="联结"></a>联结</h2><p>SQL最强大的功能之一，就是能在数据检索查询的执行中联结（join）表。</p>
-<h3 id="关系表"><a href="#关系表" class="headerlink" title="关系表"></a>关系表</h3><p>理解关系表的最好方法是来看一个现实世界中的例子。</p>
+<h2 id="联结表">联结表</h2>
+<h2 id="联结">联结</h2>
+<p>SQL最强大的功能之一，就是能在数据检索查询的执行中联结（join）表。</p>
+<h3 id="关系表">关系表</h3>
+<p>理解关系表的最好方法是来看一个现实世界中的例子。</p>
 <p>假如有一个包含产品目录的数据库表，其中每种类比的物品占一行。对于每种物品要存储的信息包括产品描述和价格，以及生产该产品的供应商信息。</p>
 <p>现在，假如有由同一供应商生产的多种物品，那么在何处存储供应商信息（如，供应商名、地址、联系方式等）呢？将这些数据与产品信息分开存储的理由如下。</p>
 <ul>
@@ -411,283 +298,220 @@
 <li>由于数据无重复，显然数据是一致的，这使得处理数据更简单。</li>
 </ul>
 <p>总之，关系数据可以有效的存储和方便的处理。因此，关系数据库的可伸缩性远比非关系数据库要好。</p>
-<p><strong>可伸缩性（scale）</strong> 能够适应不断增加的工作量而不失败。设计良好的数据库或应用程序称之为<strong>可伸缩性好（scale well）</strong>。 </p>
+<p><strong>可伸缩性（scale）</strong> 能够适应不断增加的工作量而不失败。设计良好的数据库或应用程序称之为<strong>可伸缩性好（scale well）</strong>。</p>
 </blockquote>
-<h3 id="为什么要使用联结"><a href="#为什么要使用联结" class="headerlink" title="为什么要使用联结"></a>为什么要使用联结</h3><p>正如所述，分解数据为多个表能更有效地存储，更方便地处理，并且具有更大的可伸缩性。但这些好处是有代价的。</p>
+<h3 id="为什么要使用联结">为什么要使用联结</h3>
+<p>正如所述，分解数据为多个表能更有效地存储，更方便地处理，并且具有更大的可伸缩性。但这些好处是有代价的。</p>
 <p>如果数据存储在多个表中，怎样用单条<code>select</code> 语句检索出数据？</p>
 <p>答案是使用联结。简单的说，联结是一种机制，用来在一条<code>select</code>语句中关联表 ，因此称之为联结。使用特殊的语法，可以联结多个表返回同一组输出，联结在运行时关联表中正确的行。</p>
 <blockquote>
-<p><strong>维护引用完整性</strong>  重要的是，要理解联结不是物理实体。换句话说，它在实际的数据库表中并不存在，联结由MySQL根据需要建立，它存在于查询的执行当中。</p>
+<p><strong>维护引用完整性</strong> 重要的是，要理解联结不是物理实体。换句话说，它在实际的数据库表中并不存在，联结由MySQL根据需要建立，它存在于查询的执行当中。</p>
 <p>在使用关系表时，仅在关系列中插入合法的数据非常重要，回到这里的例子，如果在<code>products</code>表中插入非法供应商ID（即没有在<code>vendors</code>表中出现 ）的供应商生产的商品，则这些产品是不可访问的，因为它们没有关联到某个供应商。</p>
-<p>为防止这种情况发生，可指示MySQL只允许在<code>products</code>表的供应商ID列中出现合法值（即出现在<code>vendors</code>表中的供应商）。这就是维护引用完整性，它是通过在表的定义中指定主键和外键来实现的。 </p>
+<p>为防止这种情况发生，可指示MySQL只允许在<code>products</code>表的供应商ID列中出现合法值（即出现在<code>vendors</code>表中的供应商）。这就是维护引用完整性，它是通过在表的定义中指定主键和外键来实现的。</p>
 </blockquote>
-<h3 id="创建联结"><a href="#创建联结" class="headerlink" title="创建联结"></a>创建联结</h3><p>联结的创建非常简单，规定要联结的所有表以及它们如何关联即可。请看下面的例子：</p>
+<h3 id="创建联结">创建联结</h3>
+<p>联结的创建非常简单，规定要联结的所有表以及它们如何关联即可。请看下面的例子：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> vend_name, prod_name, prod_price</span><br><span class="line"><span class="keyword">from</span> vendors, products</span><br><span class="line"><span class="keyword">where</span> vendors.vend_id = products.vend_id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> vend_name, prod_name;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>完全限定列名</strong> 在引用的列可能出现二义性时，必须使用完全限定列名（用一个点分隔的表名和列名）。如果引用一个没有用表名限制的具有二义性的列名，MySQL将返回错误。</p>
 </blockquote>
-<h3 id="内部联结"><a href="#内部联结" class="headerlink" title="内部联结"></a>内部联结</h3><p>目前为止所用的联结成为<strong>等值联结（equijoin）</strong> ，它基于两个表之间的相等测试。这种联结也称为<strong>内部联结</strong> 。其实对于这种联结可以使用稍微不同的语法来明确指定联结的类型。下面的<code>select</code> 语句返回与前面例子完全相同的数据：</p>
+<h3 id="内部联结">内部联结</h3>
+<p>目前为止所用的联结成为<strong>等值联结（equijoin）</strong> ，它基于两个表之间的相等测试。这种联结也称为<strong>内部联结</strong> 。其实对于这种联结可以使用稍微不同的语法来明确指定联结的类型。下面的<code>select</code> 语句返回与前面例子完全相同的数据：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> vend_name, prod_name, prod_price</span><br><span class="line"><span class="keyword">from</span> vendors <span class="keyword">inner</span> <span class="keyword">join</span> products</span><br><span class="line"><span class="keyword">on</span> vendors.vend_id = products.vend_id;</span><br></pre></td></tr></table></figure>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/ningoy.github.io/tags/SQL/" rel="tag"># SQL</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/ningoy.github.io/2017/10/01/《The Django Book》读书笔记二/" rel="next" title="《The Django Book》读书笔记二">
-                <i class="fa fa-chevron-left"></i> 《The Django Book》读书笔记二
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/ningoy.github.io/tags/SQL/" rel="tag"># SQL</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/ningoy.github.io/2017/10/26/MySQL中删除重复数据只保留一条/" rel="prev" title="MySQL中删除重复数据只保留一条">
-                MySQL中删除重复数据只保留一条 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/ningoy.github.io/2017/10/01/《The Django Book》读书笔记二/" rel="prev" title="《The Django Book》读书笔记二">
+      <i class="fa fa-chevron-left"></i> 《The Django Book》读书笔记二
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/ningoy.github.io/2017/10/26/MySQL中删除重复数据只保留一条/" rel="next" title="MySQL中删除重复数据只保留一条">
+      MySQL中删除重复数据只保留一条 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
 
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Lenin</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/ningoy.github.io/archives/">
-              
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/ningoy.github.io/categories/index.html">
-                  <span class="site-state-item-count">17</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/ningoy.github.io/tags/index.html">
-                  <span class="site-state-item-count">8</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/ningoy.github.io/rss2.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用子查询和联结表"><span class="nav-number">1.</span> <span class="nav-text">使用子查询和联结表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用子查询"><span class="nav-number">1.1.</span> <span class="nav-text">使用子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用子查询进行过滤"><span class="nav-number">1.1.1.</span> <span class="nav-text">利用子查询进行过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作为计算字段使用子查询"><span class="nav-number">1.1.2.</span> <span class="nav-text">作为计算字段使用子查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联结表"><span class="nav-number">1.2.</span> <span class="nav-text">联结表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联结"><span class="nav-number">1.3.</span> <span class="nav-text">联结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关系表"><span class="nav-number">1.3.1.</span> <span class="nav-text">关系表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要使用联结"><span class="nav-number">1.3.2.</span> <span class="nav-text">为什么要使用联结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建联结"><span class="nav-number">1.3.3.</span> <span class="nav-text">创建联结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部联结"><span class="nav-number">1.3.4.</span> <span class="nav-text">内部联结</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Lenin</span>
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用子查询和联结表"><span class="nav-number">1.</span> <span class="nav-text">使用子查询和联结表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用子查询"><span class="nav-number">1.1.</span> <span class="nav-text">使用子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用子查询进行过滤"><span class="nav-number">1.1.1.</span> <span class="nav-text">利用子查询进行过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作为计算字段使用子查询"><span class="nav-number">1.1.2.</span> <span class="nav-text">作为计算字段使用子查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联结表"><span class="nav-number">1.2.</span> <span class="nav-text">联结表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联结"><span class="nav-number">1.3.</span> <span class="nav-text">联结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关系表"><span class="nav-number">1.3.1.</span> <span class="nav-text">关系表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要使用联结"><span class="nav-number">1.3.2.</span> <span class="nav-text">为什么要使用联结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建联结"><span class="nav-number">1.3.3.</span> <span class="nav-text">创建联结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部联结"><span class="nav-number">1.3.4.</span> <span class="nav-text">内部联结</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lenin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/ningoy.github.io/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/ningoy.github.io/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/ningoy.github.io/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lenin</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">26 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
 
 
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/ningoy.github.io/lib/anime.min.js"></script>
+  <script src="/ningoy.github.io/lib/velocity/velocity.min.js"></script>
+  <script src="/ningoy.github.io/lib/velocity/velocity.ui.min.js"></script>
+<script src="/ningoy.github.io/js/utils.js"></script><script src="/ningoy.github.io/js/motion.js"></script>
+<script src="/ningoy.github.io/js/schemes/muse.js"></script>
+<script src="/ningoy.github.io/js/next-boot.js"></script>
 
 
 
@@ -704,109 +528,8 @@
 
 
 
-  
-  
-    <script type="text/javascript" src="/ningoy.github.io/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/ningoy.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/ningoy.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/ningoy.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/ningoy.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/ningoy.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
 
 
-  
-
-
-  <script type="text/javascript" src="/ningoy.github.io/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/ningoy.github.io/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/ningoy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/ningoy.github.io/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/ningoy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
 
   
 
